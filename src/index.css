@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  /* Keep anchored sections (#book, #packages) clear of the fixed navbar */
+  scroll-padding-top: 96px;
+}
+
+body {
+  @apply bg-cream text-ink font-sans antialiased;
+}
+
+::selection {
+  background: #d99a2b;
+  color: #0b1f3a;
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 active:scale-[0.98];
+  }
+  .btn-gold {
+    @apply btn bg-gold text-navy-950 shadow-soft hover:bg-gold-600 hover:text-white px-6 py-3 text-sm sm:text-base;
+  }
+  .btn-navy {
+    @apply btn bg-navy text-white hover:bg-navy-700 px-6 py-3 text-sm sm:text-base;
+  }
+  .btn-outline {
+    @apply btn border border-white/40 bg-white/10 text-white backdrop-blur hover:bg-white hover:text-navy px-6 py-3 text-sm sm:text-base;
+  }
+  .btn-outline-navy {
+    @apply btn border border-navy/20 bg-white text-navy hover:border-navy hover:bg-navy hover:text-white px-6 py-3 text-sm sm:text-base;
+  }
+  .card {
+    @apply rounded-2xl bg-white shadow-soft border border-slate-100 overflow-hidden transition-all duration-300;
+  }
+  .card-hover {
+    @apply hover:-translate-y-1 hover:shadow-card;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-gold-600;
+  }
+  .input {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-ink placeholder:text-slate-400 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-semibold text-navy;
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.img-zoom img {
+  transition: transform 0.6s ease;
+}
+.img-zoom:hover img {
+  transform: scale(1.05);
+}
