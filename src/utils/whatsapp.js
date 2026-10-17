@@ -55,7 +55,7 @@ export function bookingAdvanceAcknowledgement() {
   return `I understand that a ${formatINR(getBookingAdvance())} booking advance is required to reserve the vehicle, and that it will be adjusted against the final trip fare.`;
 }
 
-export function buildBookingMessage({ name, mobile, tour, date, passengers, pickup, price, distanceInfo, remainingFare, message }) {
+export function buildBookingMessage({ name, mobile, tour, date, passengers, pickup, price, distanceInfo, remainingFare, message, offerCode, regularPrice, discountedPrice, bookingAdvance }) {
   const lines = [
     '🙏 *Mirantar Tour Booking Enquiry*',
     '',
@@ -70,6 +70,24 @@ export function buildBookingMessage({ name, mobile, tour, date, passengers, pick
   ];
   if (distanceInfo) {
     lines.push(`*Distance:* ${distanceInfo}`);
+  }
+  if (offerCode) {
+    lines.push('');
+    lines.push('*Festive Offer Enquiry*');
+    lines.push(`*Offer code:* ${offerCode}`);
+    if (regularPrice !== null && regularPrice !== undefined) {
+      lines.push(`*Regular package fare:* ${formatINR(regularPrice)}`);
+    }
+    if (discountedPrice !== null && discountedPrice !== undefined) {
+      lines.push(`*Festive discount:* ${formatINR(500)}`);
+      lines.push(`*Discounted package fare:* ${formatINR(discountedPrice)}`);
+    }
+    if (bookingAdvance !== null && bookingAdvance !== undefined) {
+      lines.push(`*Booking advance:* ${formatINR(bookingAdvance)}`);
+    }
+    if (discountedPrice !== null && discountedPrice !== undefined && bookingAdvance !== null && bookingAdvance !== undefined) {
+      lines.push(`*Remaining package balance after advance:* ${formatINR(Math.max(0, discountedPrice - bookingAdvance))}`);
+    }
   }
   if (remainingFare) {
     lines.push(`*Remaining After Advance:* ${remainingFare}`);

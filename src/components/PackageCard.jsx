@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Users, MapPin, MessageCircle, ArrowRight, Clock, Route } from 'lucide-react';
-import { formatINR, isLaunchOfferEnabled, distancePolicyText } from '../data/ganpati.js';
+import { formatINR, distancePolicyText } from '../data/ganpati.js';
 import { getBookingAdvance, bookingAdvanceShortText } from '../utils/pricing.js';
 import { tourImages } from '../data/images.js';
 import SafeImage from './SafeImage.jsx';
@@ -11,8 +11,7 @@ import { businessConfig } from '../config/businessConfig.js';
  * nothing is hard-coded here. Shows distance policy transparently.
  */
 export default function PackageCard({ pkg }) {
-  const showLaunch = isLaunchOfferEnabled();
-  const displayPrice = showLaunch ? pkg.launchPrice : pkg.regularPrice;
+  const displayPrice = pkg.regularPrice;
 
   return (
     <article className="card card-hover img-zoom flex flex-col reveal">
@@ -31,23 +30,10 @@ export default function PackageCard({ pkg }) {
       </div>
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div className="rounded-xl bg-cream p-4 text-sm">
-          {showLaunch ? (
-            <>
-              <div className="flex justify-between text-slate-500">
-                <span>Regular Price</span>
-                <span className="line-through">{formatINR(pkg.regularPrice)} / vehicle</span>
-              </div>
-              <div className="mt-1.5 flex justify-between text-xl font-bold text-navy">
-                <span>Ganpati Launch Price</span>
-                <span>{formatINR(displayPrice)} / vehicle</span>
-              </div>
-            </>
-          ) : (
-            <div className="flex justify-between text-xl font-bold text-navy">
-              <span>Price</span>
-              <span>{formatINR(displayPrice)} / vehicle</span>
-            </div>
-          )}
+          <div className="flex justify-between text-xl font-bold text-navy">
+            <span>Price</span>
+            <span>{formatINR(displayPrice)} / vehicle</span>
+          </div>
           <div className="mt-3 border-t border-slate-200 pt-3 space-y-1.5">
             <div className="flex items-center justify-between font-semibold text-navy">
               <span className="inline-flex items-center gap-1.5"><Route size={14} className="text-gold-600" /> Distance Included</span>

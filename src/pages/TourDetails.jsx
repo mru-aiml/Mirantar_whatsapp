@@ -22,7 +22,7 @@ export default function TourDetails() {
     distanceInfo: tour.includedKm ? `Includes up to ${tour.includedKm} km; extra at ${formatINR(tour.extraKmRate)}/km` : '',
     remainingFare, message: '',
   });
-  const tourPricing = hasFixedPrice ? { price: tour.price, includedKm: tour.includedKm, extraKmRate: tour.extraKmRate } : null;
+  const tourPricing = hasFixedPrice ? { price: tour.price, includedKm: tour.includedKm, extraKmRate: tour.extraKmRate, tripType: tour.tripType } : null;
 
   return (
     <>

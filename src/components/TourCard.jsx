@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Clock, Route, MessageCircle, ArrowRight, Car } from 'lucide-react';
 import SafeImage from './SafeImage.jsx';
-import { formatPerVehicle, bookingAdvanceShortText } from '../utils/pricing.js';
+import { formatPerVehicle, bookingAdvanceShortText, isFestiveOfferEnabled, calculateFestivePrice, getFestiveOfferCode, formatINR, isFestiveEligibleOffer } from '../utils/pricing.js';
 
 export function priceText(tour) {
   return formatPerVehicle(tour.price) || tour.priceLabel || 'Get a Quote';
@@ -31,6 +31,9 @@ export default function TourCard({ tour }) {
           <Car size={14} className="text-gold-600" /> Maruti Suzuki Ertiga · Up to 6 passengers
         </p>
         <p className={`text-base font-bold ${tour.price ? 'text-navy' : 'text-gold-600'}`}>{priceText(tour)}</p>
+        {tour.price && isFestiveOfferEnabled() && isFestiveEligibleOffer(tour.price, tour.tripType) ? (
+          <p className="text-xs font-semibold text-gold-600">Festive price {formatINR(calculateFestivePrice(tour.price))} with {getFestiveOfferCode()}</p>
+        ) : null}
         {tour.price ? (
           <p className="text-xs font-semibold text-gold-600">{bookingAdvanceShortText()}</p>
         ) : null}

@@ -9,6 +9,7 @@ import GanpatiSpecial from './pages/GanpatiSpecial.jsx';
 import GanpatiDetail from './pages/GanpatiDetail.jsx';
 import TourDetails from './pages/TourDetails.jsx';
 import Vehicle from './pages/Vehicle.jsx';
+import Pricing from './pages/Pricing.jsx';
 import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import CustomTrip from './pages/CustomTrip.jsx';
@@ -48,6 +49,7 @@ export default function App() {
           <Route path="/ganpati-special" element={<GanpatiSpecial />} />
           <Route path="/ganpati-special/:slug" element={<GanpatiDetail />} />
           <Route path="/vehicle" element={<Vehicle />} />
+          <Route path="/pricing" element={<Pricing />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/custom-trip" element={<CustomTrip />} />

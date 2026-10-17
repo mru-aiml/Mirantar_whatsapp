@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { bookingAdvanceExplanation } from '../utils/pricing.js';
+import { bookingAdvanceExplanation, isFestiveOfferEnabled, getFestiveOfferCode, getFestiveDiscountAmount, getFestiveMinRegularFare, getFestiveMaxConfirmedBookings, formatINR } from '../utils/pricing.js';
 
 export function getAdvanceFAQ() {
   return {
@@ -22,6 +22,24 @@ export const FAQS = [
   },
   { q: 'How do I book?', a: 'Send us your trip details on WhatsApp. Mirantar will manually confirm availability and the final fare.' },
   { q: 'Can I plan a custom trip?', a: 'Yes. Use the Custom Trip form to request a quotation.' },
+  {
+    q: 'What is the Mirantar Festive Offer?',
+    a: isFestiveOfferEnabled()
+      ? `Eligible outstation packages receive ${formatINR(getFestiveDiscountAmount())} off using code ${getFestiveOfferCode()}. Local packages, airport transfers and custom quotes are not eligible unless configured.`
+      : 'The festive offer is currently disabled.',
+  },
+  {
+    q: 'Is the festive discount the same as the booking advance?',
+    a: 'No. The festive discount reduces the package fare. The Rs.500 booking advance is a separate amount required to reserve the vehicle and is adjusted against the final trip fare.',
+  },
+  {
+    q: 'Who is eligible for the festive offer?',
+    a: 'Eligible outstation packages only. Local packages, airport transfers and custom quotes are not eligible unless configured. Mirantar confirms availability and eligibility.',
+  },
+  {
+    q: 'How do I claim the festive offer?',
+    a: `Enter offer code ${getFestiveOfferCode()} in the booking form or use a festive offer booking button. Submitting the form sends a request only; the booking is confirmed after Mirantar confirms availability and receives the required advance.`,
+  },
 ];
 
 export default function FAQ({ items = FAQS }) {

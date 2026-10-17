@@ -9,6 +9,8 @@ export const tourConfig = {
     'Religious & Spiritual',
     'Hill Stations & Nature',
     'Heritage & Forts',
+    'Outstation',
+    'Local Packages',
     'Custom Trips',
   ],
 

@@ -4,7 +4,7 @@ import BookingForm from '../components/BookingForm.jsx';
 import BookingAdvanceBox from '../components/BookingAdvanceBox.jsx';
 import SafeImage from '../components/SafeImage.jsx';
 import { getGanpatiPackageBySlug, GANPATI_INCLUDED, GANPATI_EXCLUDED } from '../data/ganpatiPackages.js';
-import { getPackagePricing, isLaunchOfferEnabled, formatINR, distancePolicyText, getBookingAdvance } from '../utils/pricing.js';
+import { getPackagePricing, formatINR, distancePolicyText, getBookingAdvance } from '../utils/pricing.js';
 import { tourConfig } from '../config/tourConfig.js';
 import { businessConfig } from '../config/businessConfig.js';
 import NotFound from './NotFound.jsx';
@@ -15,12 +15,10 @@ export default function GanpatiDetail() {
   if (!pkg) return <NotFound />;
 
   const pricing = getPackagePricing(pkg.regularPriceKey);
-  const showLaunch = isLaunchOfferEnabled();
-  const displayPrice = showLaunch ? pricing.launchPrice : pricing.regularPrice;
+  const displayPrice = pricing.regularPrice;
   const tourName = `${pkg.name} (${pkg.temples.join(' + ')})`;
   const formPkg = {
     regularPrice: pricing.regularPrice,
-    launchPrice: pricing.launchPrice,
     includedKm: pricing.includedKm,
     extraKmRate: pricing.extraKmRate,
   };
@@ -48,14 +46,7 @@ export default function GanpatiDetail() {
           <div className="card p-6 sm:p-8 reveal">
             <h2 className="font-display text-2xl font-semibold text-navy">Per-Vehicle Pricing</h2>
             <div className="mt-4 space-y-2 rounded-2xl bg-cream p-5 text-sm sm:text-base">
-              {showLaunch ? (
-                <>
-                  <div className="flex justify-between text-slate-500"><span>Regular Price</span><span className="line-through">{formatINR(pricing.regularPrice)} / vehicle</span></div>
-                  <div className="flex justify-between font-bold text-navy"><span>Ganpati Launch Price</span><span>{formatINR(displayPrice)} / vehicle</span></div>
-                </>
-              ) : (
-                <div className="flex justify-between font-bold text-navy"><span>Price</span><span>{formatINR(displayPrice)} / vehicle</span></div>
-              )}
+              <div className="flex justify-between font-bold text-navy"><span>Price</span><span>{formatINR(displayPrice)} / vehicle</span></div>
               <div className="flex justify-between border-t border-slate-200 pt-2 font-semibold text-navy">
                 <span className="inline-flex items-center gap-1.5"><Route size={15} className="text-gold-600" /> Distance Included</span>
                 <span>Up to {pricing.includedKm} km</span>

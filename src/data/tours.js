@@ -301,33 +301,101 @@ export const TOURS = [
     excluded: ['Toll charges', 'Parking charges', 'Halting/night-stay charges', 'Food and refreshments', 'Personal expenses', 'Optional charges, where applicable'],
     notes: ['Some climbing involved; wear comfortable footwear.'],
   },
+  {
+    slug: 'pune-mumbai-one-way',
+    name: 'Pune to Mumbai (One-Way)',
+    category: 'Outstation',
+    duration: 'One Way',
+    route: 'Pune -> Mumbai',
+    price: null,
+    priceLabel: 'Get a Quote',
+    image: tourImages.custom,
+    short: 'One-way private Ertiga transfer from Pune to Mumbai.',
+    description: 'Private one-way transfer from Pune to Mumbai in a comfortable Ertiga with a professional driver.',
+    highlights: ['Private vehicle', 'Professional driver', 'Doorstep pickup'],
+    included: ['Maruti Suzuki Ertiga Smart Hybrid', 'Fuel', 'Professional driver', 'Private vehicle', 'Pune pickup within defined service area'],
+    excluded: ['Toll charges', 'Parking charges', 'Driver/night-halt charges', 'Food and refreshments', 'Personal expenses'],
+    notes: ['One-way trip; return fare is separate.'],
+    popular: true,
+  },
 ];
 
 /* ── Central price + alt resolution (single source of truth) ────────── */
 // Slug → pricingConfig.tours key. Slugs missing here show "Get a Quote".
 const TOUR_PRICE_KEYS = {
-  'bhimashankar-yatra': 'bhimashankarYatra',
-  'lonavala-khandala': 'lonavalaKhandala',
-  'mahabaleshwar-panchgani': 'mahabaleshwarPanchgani',
-  'shirdi-darshan': 'shirdiDarshan',
+  'bhimashankar-yatra': 'puneBhimashankar',
+  'lonavala-khandala': 'puneLonavala',
+  'mahabaleshwar-panchgani': 'puneMahabaleshwar',
+  'shirdi-darshan': 'puneShirdi',
   'jejuri-darshan': 'jejuriDarshan',
   'bhuleshwar-jejuri': 'bhuleshwarJejuri',
   'raigad-fort': 'raigadFort',
   'mulshi-tamhini': 'mulshiTamhini',
-  'nashik-trimbakeshwar': 'nashikTrimbakeshwar',
+  'nashik-trimbakeshwar': 'puneTrimbakeshwar',
   'pune-heritage': 'puneHeritage',
   sinhagad: 'sinhagadKhadakwasla',
+  'pune-mumbai-one-way': 'puneMumbaiOneWay',
+  'pune-mumbai-round-trip': 'puneMumbaiRoundTrip',
+  'pune-goa': 'puneGoa',
+  'pune-tuljapur': 'puneTuljapur',
+  'pune-pandharpur': 'punePandharpur',
+  'pune-akkalkot': 'puneAkkalkot',
+  'pune-solapur': 'puneSolapur',
+  'pune-kolhapur': 'puneKolhapur',
+  'pune-satara': 'puneSatara',
+  'half-day-local': 'halfDayLocal',
+  'full-day-local': 'fullDayLocal',
+  'extended-local': 'extendedLocal',
 };
 
 const ALT_BY_SRC = Object.fromEntries(
   Object.entries(tourImages).map(([key, src]) => [src, tourImageAlts[key]]),
 );
 
+const EXTRA_ROUTE_DEFS = [
+  { slug: 'pune-mumbai-one-way', name: 'Pune to Mumbai (One-Way)', route: 'Pune -> Mumbai', duration: 'One Way', popular: true },
+  { slug: 'pune-mumbai-round-trip', name: 'Pune to Mumbai (Round Trip)', route: 'Pune -> Mumbai -> Pune', duration: 'One Day', popular: true },
+  { slug: 'pune-goa', name: 'Pune to Goa', route: 'Pune -> Goa -> Pune', duration: 'Multi Day', popular: false },
+  { slug: 'pune-tuljapur', name: 'Pune to Tuljapur', route: 'Pune -> Tuljapur -> Pune', duration: 'One Day', popular: false },
+  { slug: 'pune-pandharpur', name: 'Pune to Pandharpur', route: 'Pune -> Pandharpur -> Pune', duration: 'One Day', popular: false },
+  { slug: 'pune-akkalkot', name: 'Pune to Akkalkot', route: 'Pune -> Akkalkot -> Pune', duration: 'One Day', popular: false },
+  { slug: 'pune-solapur', name: 'Pune to Solapur', route: 'Pune -> Solapur -> Pune', duration: 'One Day', popular: false },
+  { slug: 'pune-kolhapur', name: 'Pune to Kolhapur', route: 'Pune -> Kolhapur -> Pune', duration: 'One Day', popular: false },
+  { slug: 'pune-satara', name: 'Pune to Satara', route: 'Pune -> Satara -> Pune', duration: 'One Day', popular: false },
+  { slug: 'half-day-local', name: 'Half-Day Local', route: 'Local (60 km)', duration: '6 hours', popular: false },
+  { slug: 'full-day-local', name: 'Full-Day Local', route: 'Local (120 km)', duration: '8 hours', popular: false },
+  { slug: 'extended-local', name: 'Extended Local', route: 'Local (250 km)', duration: '12 hours', popular: false },
+];
+
+EXTRA_ROUTE_DEFS.forEach((d) => {
+  if (!TOURS.some((t) => t.slug === d.slug)) {
+    TOURS.push({
+      slug: d.slug,
+      name: d.name,
+      category: d.slug.includes('local') ? 'Local Packages' : 'Outstation',
+      duration: d.duration,
+      route: d.route,
+      price: null,
+      priceLabel: 'Get a Quote',
+      image: tourImages.custom,
+      short: `${d.name} with Mirantar.`,
+      description: `Private journey: ${d.route} in a comfortable Ertiga with a professional driver.`,
+      highlights: ['Private vehicle', 'Professional driver'],
+      included: ['Maruti Suzuki Ertiga Smart Hybrid', 'Fuel', 'Professional driver', 'Private vehicle', 'Pune pickup/drop within defined service area'],
+      excluded: ['Toll charges', 'Parking charges', 'Driver/night-halt charges', 'Food and refreshments', 'Personal expenses'],
+      notes: [],
+      popular: d.popular,
+    });
+  }
+});
+
 TOURS.forEach((t) => {
   const p = getTourPricing(TOUR_PRICE_KEYS[t.slug]);
   t.price = p.price;
   t.includedKm = p.includedKm;
   t.extraKmRate = p.extraKmRate;
+  t.tripType = p.tripType;
+  t.oneWay = p.oneWay;
   t.imageAlt = ALT_BY_SRC[t.image] || `${t.name} with Mirantar`;
 });
 
@@ -335,6 +403,8 @@ export const TOUR_CATEGORIES = [
   'Religious & Spiritual',
   'Hill Stations & Nature',
   'Heritage & Forts',
+  'Outstation',
+  'Local Packages',
   'Custom Trips',
 ];
 

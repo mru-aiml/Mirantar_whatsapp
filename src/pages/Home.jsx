@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Car, UserCheck, Armchair, Map, MessageCircle, ArrowRight, Check, ShieldCheck, Clock, HeartHandshake, Route as RouteIcon } from 'lucide-react';
 import Hero from '../components/Hero.jsx';
+import FestiveOfferBanner from '../components/FestiveOfferBanner.jsx';
+import FestiveOffersSection from '../components/FestiveOffersSection.jsx';
 import SectionHeader from '../components/SectionHeader.jsx';
 import FeatureCard from '../components/FeatureCard.jsx';
-import OfferBanner from '../components/OfferBanner.jsx';
 import TourGrid from '../components/TourGrid.jsx';
 import FAQ from '../components/FAQ.jsx';
 import WhatsAppCTA from '../components/WhatsAppCTA.jsx';
@@ -26,6 +27,7 @@ export default function Home() {
   const popular = getPopularTours();
   return (
     <>
+      <FestiveOfferBanner />
       <Hero
         kicker="Pune · Private Ertiga Tours · Up to 6 Passengers"
         title="Explore Maharashtra with Mirantar"
@@ -60,7 +62,7 @@ export default function Home() {
           </div>
         </section>
 
-        <OfferBanner />
+        <FestiveOffersSection />
 
         {/* Popular tours */}
         <section aria-label="Popular Maharashtra tours">

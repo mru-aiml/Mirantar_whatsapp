@@ -10,7 +10,6 @@ import SafeImage from '../components/SafeImage.jsx';
 import { GANPATI_PACKAGES, GANPATI_INCLUDED, GANPATI_EXCLUDED } from '../data/ganpati.js';
 import { FARE_NOTE } from '../data/site.js';
 import { tourImages } from '../data/images.js';
-import { pricingConfig } from '../config/pricingConfig.js';
 import { tourConfig } from '../config/tourConfig.js';
 import { createWhatsAppLink } from '../utils/whatsapp.js';
 import { usePageMeta } from '../hooks/usePageMeta.js';
@@ -25,8 +24,6 @@ export default function GanpatiSpecial() {
       'Private Ashtavinayak Yatra packages from Pune in a comfortable Ertiga with professional driver. Transparent per-vehicle pricing.',
   });
 
-  const offer = pricingConfig.ganpatiLaunchOffer;
-
   return (
     <>
       <section className="relative overflow-hidden bg-navy-950 pt-28 pb-14 sm:pt-32 sm:pb-20 text-white">
@@ -36,13 +33,6 @@ export default function GanpatiSpecial() {
           <p className="eyebrow !text-gold-200 justify-center">Ganpati Special 2026 · Private Ashtavinayak Yatras</p>
           <h1 className="mt-3 font-display text-4xl sm:text-6xl font-semibold leading-tight">Begin Your Ashtavinayak Yatra</h1>
           <p className="mt-3 text-base sm:text-lg text-white/85">Private Ashtavinayak journeys from Pune with Mirantar.</p>
-          {offer?.enabled && (
-            <div className="mt-6 flex justify-center">
-              <span className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-bold text-navy-950">
-                <BadgePercent size={17} /> {offer.label || 'Ganpati Launch Offer'}: Save ₹{Number(offer.discountPerVehicle).toLocaleString('en-IN')} per vehicle
-              </span>
-            </div>
-          )}
           <p className="mt-3 text-xs text-white/60">Prices are per vehicle, for up to 6 passengers.</p>
           <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
             <a href="#packages" className="btn-gold">View Packages</a>
@@ -91,7 +81,7 @@ export default function GanpatiSpecial() {
           <div className="mt-8"><FAQ /></div>
         </section>
 
-        <WhatsAppCTA title="Ready to book your yatra?" sub={offer?.enabled ? `${offer.label || 'Ganpati Launch Offer'} · Save ₹${Number(offer.discountPerVehicle).toLocaleString('en-IN')} per vehicle` : 'MIRANTAR — MOVING FORWARD. ALWAYS.'} />
+        <WhatsAppCTA title="Ready to book your yatra?" sub="MIRANTAR - MOVING FORWARD. ALWAYS." />
         <p className="text-center text-sm text-slate-500">Prefer a different combination? <Link to="/custom-trip" className="font-semibold text-gold-600 underline">Get a custom quote</Link>.</p>
       </div>
     </>

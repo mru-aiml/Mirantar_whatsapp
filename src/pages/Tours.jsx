@@ -40,7 +40,7 @@ export default function Tours() {
           ))}
         </div>
 
-        {['All', 'Religious & Spiritual', 'Hill Stations & Nature', 'Heritage & Forts'].includes(cat) && (
+        {['All', 'Religious & Spiritual', 'Hill Stations & Nature', 'Heritage & Forts', 'Outstation', 'Local Packages'].includes(cat) && (
           <section aria-label={`${cat} tours`}>
             <SectionHeader align="left" eyebrow={cat === 'All' ? 'All tours' : cat} title={cat === 'All' ? `All Tours (${filtered.length})` : `${cat} (${filtered.length})`} />
             <div className="mt-6"><TourGrid tours={filtered} /></div>

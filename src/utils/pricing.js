@@ -46,13 +46,11 @@ export function calculateFinalPrice(basePrice, actualKm, includedKm, extraKmRate
 /* ── Config-driven package pricing ─────────────────────────────────── */
 
 export function getLaunchDiscount() {
-  const offer = pricingConfig.ganpatiLaunchOffer;
-  if (!offer || offer.enabled !== true) return 0;
-  return clampNonNegative(offer.discountPerVehicle);
+  return 0;
 }
 
 export function isLaunchOfferEnabled() {
-  return pricingConfig.ganpatiLaunchOffer?.enabled === true;
+  return false;
 }
 
 /**
@@ -69,21 +67,17 @@ export function getPackagePricing(priceKey) {
   const extraKmRate = clampNonNegative(
     entry?.extraKmRate ?? pricingConfig.distance?.extraKmRate ?? 18,
   );
-  const discount = getLaunchDiscount();
   return {
     regularPrice,
-    launchPrice: calculateDiscountedPrice(regularPrice, discount),
-    discount,
     includedKm,
     extraKmRate,
     enabled: entry?.enabled !== false,
   };
 }
 
-/** Display price: launch price when the offer is on, else regular price. */
+/** Display price for a Ganpati package. */
 export function getDisplayPrice(priceKey) {
-  const p = getPackagePricing(priceKey);
-  return isLaunchOfferEnabled() ? p.launchPrice : p.regularPrice;
+  return getPackagePricing(priceKey).regularPrice;
 }
 
 /* ── General tour pricing (pricingConfig.tours) ────────────────────── */
@@ -99,18 +93,36 @@ export function getTourPricing(priceKey) {
     return {
       price: null,
       includedKm: clampNonNegative(pricingConfig.distance?.defaultIncludedKm ?? 200),
-      extraKmRate: clampNonNegative(pricingConfig.distance?.extraKmRate ?? 18),
+      extraKmRate: clampNonNegative(pricingConfig.distance?.extraKmRate ?? 15),
+      tripType: 'outstation',
+      includedHours: null,
+      oneWay: false,
     };
   }
   return {
-    price: clampNonNegative(entry.price),
+    price: entry.price === null || entry.price === undefined ? null : clampNonNegative(entry.price),
     includedKm: clampNonNegative(
       entry.includedKm ?? pricingConfig.distance?.defaultIncludedKm ?? 200,
     ),
     extraKmRate: clampNonNegative(
-      entry.extraKmRate ?? pricingConfig.distance?.extraKmRate ?? 18,
+      entry.extraKmRate ?? pricingConfig.distance?.extraKmRate ?? 15,
     ),
+    tripType: entry.tripType || 'outstation',
+    includedHours: entry.includedHours ?? null,
+    oneWay: entry.oneWay === true,
   };
+}
+
+export function isFestiveTripTypeEligible(tripType) {
+  const allowed = pricingConfig.festiveOffer?.eligibleTripTypes || [];
+  return allowed.includes(tripType);
+}
+
+export function isFestiveEligibleOffer(price, tripType) {
+  if (!isFestiveOfferEnabled()) return false;
+  if (price === null || price === undefined) return false;
+  if (!isFestiveTripTypeEligible(tripType)) return false;
+  return true;
 }
 
 /** "₹4,499 / vehicle" — null when the tour has no fixed price. */
@@ -150,6 +162,63 @@ export function bookingAdvanceShortText() {
  */
 export function calculateRemainingFare(finalTripFare) {
   return Math.max(0, clampNonNegative(finalTripFare) - getBookingAdvance());
+}
+
+/* ?"? Festive offer helpers ?"? */
+
+export function getFestiveOfferConfig() {
+  return pricingConfig.festiveOffer || {};
+}
+
+export function isFestiveOfferEnabled() {
+  return pricingConfig.festiveOffer?.enabled === true;
+}
+
+export function getFestiveOfferCode() {
+  return pricingConfig.festiveOffer?.code || 'FESTIVE500';
+}
+
+export function getFestiveDiscountAmount() {
+  return clampNonNegative(pricingConfig.festiveOffer?.discountAmount ?? 500);
+}
+
+export function getFestiveMinRegularFare() {
+  return clampNonNegative(pricingConfig.festiveOffer?.minRegularFare ?? 4000);
+}
+
+export function getFestiveMaxConfirmedBookings() {
+  return clampNonNegative(pricingConfig.festiveOffer?.maxConfirmedBookings ?? 10);
+}
+
+export function isFestiveCombinationAllowed() {
+  return pricingConfig.festiveOffer?.allowCombination === true;
+}
+
+export function getAirportTransferStartingPrice() {
+  return clampNonNegative(pricingConfig.airportTransfer?.startingPrice ?? 799);
+}
+
+export function getExtraHourRate() {
+  const v = pricingConfig.extraHourRate;
+  if (v === null || v === undefined) return null;
+  return clampNonNegative(v);
+}
+
+export function isFestiveEligibleRegularPrice(regularPrice) {
+  return clampNonNegative(regularPrice) >= getFestiveMinRegularFare();
+}
+
+export function calculateFestivePrice(regularPrice) {
+  const base = clampNonNegative(regularPrice);
+  if (!isFestiveOfferEnabled()) return base;
+  if (!isFestiveEligibleRegularPrice(base)) return base;
+  return calculateDiscountedPrice(base, getFestiveDiscountAmount());
+}
+
+export function festiveSavings(regularPrice) {
+  if (!isFestiveOfferEnabled()) return 0;
+  if (!isFestiveEligibleRegularPrice(regularPrice)) return 0;
+  return getFestiveDiscountAmount();
 }
 
 /** Dev-time sanity checks: unique package IDs, sane numbers. */

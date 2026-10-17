@@ -1,12 +1,15 @@
 import { useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { MessageCircle } from 'lucide-react';
 import { TOURS } from '../data/tours.js';
-import { GANPATI_PACKAGES, formatINR, isLaunchOfferEnabled, distancePolicyText } from '../data/ganpati.js';
+import { GANPATI_PACKAGES, formatINR, distancePolicyText } from '../data/ganpati.js';
 import { tourConfig } from '../config/tourConfig.js';
-import { getBookingAdvance, bookingAdvanceExplanation, calculateRemainingFare } from '../utils/pricing.js';
+import { getBookingAdvance, bookingAdvanceExplanation, calculateRemainingFare, isFestiveOfferEnabled, getFestiveOfferCode, getFestiveDiscountAmount, getFestiveMinRegularFare, isFestiveEligibleRegularPrice, calculateFestivePrice } from '../utils/pricing.js';
 import { buildBookingMessage, createWhatsAppLink, isValidIndianMobile, isFutureOrToday, todayISO } from '../utils/whatsapp.js';
 
-export default function BookingForm({ presetTour = '', ganpatiPkg = null, tourPricing = null, compact = false }) {
+export default function BookingForm({ presetTour = '', ganpatiPkg = null, tourPricing = null, compact = false, prefillOfferCode = '' }) {
+  const [searchParams] = useSearchParams();
+  const initialOfferCode = prefillOfferCode || searchParams.get('offer') || '';
   const [form, setForm] = useState({
     name: '',
     mobile: '',
@@ -16,6 +19,7 @@ export default function BookingForm({ presetTour = '', ganpatiPkg = null, tourPr
     pickup: '',
     message: '',
   });
+  const [offerCode, setOfferCode] = useState(initialOfferCode);
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState(false);
 
@@ -29,12 +33,20 @@ export default function BookingForm({ presetTour = '', ganpatiPkg = null, tourPr
   // Fixed price source: Ganpati package first, then general tour pricing.
   // Remaining fare is shown/sent ONLY when a fixed final price is known.
   const fixedPrice = ganpatiPkg
-    ? (isLaunchOfferEnabled() ? ganpatiPkg.launchPrice : ganpatiPkg.regularPrice)
+    ? ganpatiPkg.regularPrice
     : tourPricing?.price ?? null;
+
+  const regularForOffer = ganpatiPkg ? ganpatiPkg.regularPrice : (tourPricing?.price ?? fixedPrice);
+  const otherDiscountActive = false;
+  const festiveCodeMatches = isFestiveOfferEnabled() && offerCode.trim().toUpperCase() === getFestiveOfferCode();
+  const tripType = ganpatiPkg ? 'outstation' : (tourPricing?.tripType ?? 'outstation');
+  const festiveEligible = festiveCodeMatches && !otherDiscountActive && !ganpatiPkg && regularForOffer !== null && isFestiveEligibleOffer(regularForOffer, tripType);
+  const festivePrice = festiveEligible ? calculateFestivePrice(regularForOffer) : null;
+  const festiveDiscount = festiveEligible ? getFestiveDiscountAmount() : 0;
 
   const priceLabel = useMemo(() => {
     if (ganpatiPkg) {
-      return `${formatINR(fixedPrice)} / vehicle${isLaunchOfferEnabled() ? ' (Ganpati Launch Price)' : ''}`;
+      return `${formatINR(fixedPrice)} / vehicle`;
     }
     if (fixedPrice !== null) return `${formatINR(fixedPrice)} / vehicle`;
     return 'Get a Quote';
@@ -87,6 +99,10 @@ export default function BookingForm({ presetTour = '', ganpatiPkg = null, tourPr
       distanceInfo,
       remainingFare: remainingLabel || undefined,
       message: form.message,
+      offerCode: offerCode.trim(),
+      regularPrice: regularForOffer,
+      discountedPrice: festivePrice,
+      bookingAdvance: getBookingAdvance(),
     });
     window.open(createWhatsAppLink(msg), '_blank', 'noopener,noreferrer');
   }
@@ -125,6 +141,8 @@ export default function BookingForm({ presetTour = '', ganpatiPkg = null, tourPr
           <input id="bf-passengers" data-error={!!errors.passengers} className="input" type="number" min="1" max={tourConfig.defaultMaxPassengers} placeholder="e.g. 4" value={form.passengers} onChange={(e) => set('passengers', e.target.value)} />)}
         {field('pickup', 'Pickup Location',
           <input id="bf-pickup" data-error={!!errors.pickup} className="input" placeholder="e.g. Kothrud, Pune" value={form.pickup} onChange={(e) => set('pickup', e.target.value)} autoComplete="street-address" />)}
+        {field('offerCode', 'Offer Code (optional)',
+          <input id="bf-offerCode" className="input" placeholder={getFestiveOfferCode()} value={offerCode} onChange={(e) => setOfferCode(e.target.value.toUpperCase())} />)}
       </div>
       <div className="mt-4">
         <label className="label" htmlFor="bf-message">Additional Message <span className="font-normal text-slate-400">(optional)</span></label>
@@ -136,6 +154,35 @@ export default function BookingForm({ presetTour = '', ganpatiPkg = null, tourPr
         {ganpatiPkg && (
           <span className="block text-xs text-slate-600 mt-1.5">{distancePolicyText(ganpatiPkg.includedKm, ganpatiPkg.extraKmRate)}</span>
         )}
+        {festivePrice !== null && (
+          <div className="mt-2 rounded-lg bg-white/70 p-3 text-xs">
+            <div className="flex justify-between text-slate-500">
+              <span>Regular package fare</span>
+              <span className="line-through">{formatINR(regularForOffer)}</span>
+            </div>
+            <div className="flex justify-between text-slate-600">
+              <span>Festive discount ({getFestiveOfferCode()})</span>
+              <span>-{formatINR(festiveDiscount)}</span>
+            </div>
+            <div className="flex justify-between font-bold text-navy">
+              <span>Discounted package fare</span>
+              <span className="text-gold-600">{formatINR(festivePrice)}</span>
+            </div>
+            <div className="flex justify-between text-slate-600">
+              <span>Booking advance</span>
+              <span>{formatINR(getBookingAdvance())}</span>
+            </div>
+            <div className="flex justify-between font-semibold text-navy">
+              <span>Remaining package balance after advance</span>
+              <span>{formatINR(Math.max(0, festivePrice - getBookingAdvance()))}</span>
+            </div>
+          </div>
+        )}
+        {offerCode.trim() && !festiveEligible && isFestiveOfferEnabled() && (
+          <span className="block text-xs text-slate-600 mt-1.5">
+            Festive offer not applied: enter {getFestiveOfferCode()} for an eligible outstation package.
+          </span>
+        )}
         <span className="block text-xs text-slate-600 mt-1.5">
           <strong className="text-navy">Booking Advance: {formatINR(getBookingAdvance())}.</strong> {bookingAdvanceExplanation()}
         </span>
@@ -145,6 +192,12 @@ export default function BookingForm({ presetTour = '', ganpatiPkg = null, tourPr
           </span>
         )}
         <span className="block text-xs text-slate-500 mt-1">Toll, parking and halting charges, wherever applicable, are payable separately by the passenger.</span>
+        <p className="mt-2 text-xs leading-relaxed text-slate-600">
+          Offer applies to eligible outstation packages. Availability and eligibility will be confirmed by Mirantar.
+        </p>
+      </div>
+      <div className="mt-3 rounded-xl border border-slate-200 bg-white p-3 text-xs leading-relaxed text-slate-600">
+        <strong className="text-navy">Booking status:</strong> submitting this form sends a booking request only. Mirantar confirms availability; the booking is confirmed only after the {formatINR(getBookingAdvance())} advance is received.
       </div>
       <button type="submit" className="btn-gold mt-5 w-full !py-3.5 text-base">
         <MessageCircle size={19} /> Book on WhatsApp

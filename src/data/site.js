@@ -25,6 +25,7 @@ export const WHATSAPP_NUMBER = SITE.whatsappNumber;
 export const NAV_LINKS = [
   { to: '/', label: 'Home' },
   { to: '/tours', label: 'Tours' },
+  { to: '/pricing', label: 'Pricing' },
   { to: '/ganpati-special', label: 'Ganpati Special' },
   { to: '/vehicle', label: 'Our Vehicle' },
   { to: '/about', label: 'About' },

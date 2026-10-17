@@ -103,3 +103,67 @@ npm run preview  # preview the production build
 - [ ] Verify any non-Ganpati tour fare before switching it from quote → fixed.
 - [ ] Add SPA fallback (`/* → /index.html`) on the static host for deep links.
 - [ ] Optional: connect Google Maps/Mapbox later for live distance measurement.
+
+## Festive offer configuration
+
+The festive offer is controlled centrally in src/config/pricingConfig.js under estiveOffer. Change enabled, code, discountAmount, minRegularFare, maxConfirmedBookings, eligibleTripType or llowCombination there; the banner, festive offers section, tour cards, pricing page, booking form and WhatsApp messages update automatically.
+
+Eligibility: outstation round-trip packages with a regular fare of at least the configured minimum. The festive discount is never combined with another promotional discount unless llowCombination is true, and it is never applied to one-way transfers, local packages, airport transfers or custom quotes by default.
+
+Booking advance (ooking.advanceAmount, Rs. 500) is separate from the festive discount. For an eligible booking:
+
+- discounted package fare = regular package fare - festive discount
+- remaining package balance = discounted package fare - booking advance
+
+## Festive offer claim limit (static SPA limitation)
+
+This project is a static React SPA with no backend or database. The "first 10 confirmed eligible bookings" limit cannot be enforced securely on the client. Booking submissions are enquiries only; Mirantar confirms availability, eligibility, offer status and final fare manually. If a backend is added later, enforce the limit with a transactional, database-backed counter and a booking/offer status lifecycle (request submitted -> availability confirmed -> advance received -> booking confirmed), reserving an offer only on confirmation and releasing it on cancellation/expiry.
+
+## Price sheet sync audit
+
+### A. In the price sheet and already on the website
+- Pune to Mumbai (One-Way): added, Rs 3,149.
+- Pune to Mumbai (Round Trip): added, Rs 4,849.
+- Pune to Lonavala: existing Lonavala & Khandala tour updated to Rs 4,399 / 300 km.
+- Pune to Bhimashankar: existing Bhimashankar Yatra updated to Rs 4,399 / 300 km.
+- Pune to Mahabaleshwar: existing Mahabaleshwar & Panchgani tour updated to Rs 4,899 / 300 km.
+- Pune to Shirdi: existing Shirdi Darshan updated to Rs 5,849 / 400 km.
+- Pune to Goa: added, Rs 14,499 / 1,000 km.
+- Pune to Trimbakeshwar: existing Nashik & Trimbakeshwar tour updated to Rs 7,349 / 500 km.
+- Pune to Tuljapur: added, Rs 8,399 / 600 km.
+- Pune to Pandharpur: added, Rs 7,349 / 500 km.
+- Pune to Akkalkot: added, Rs 9,099 / 650 km.
+- Pune to Solapur: added, Rs 7,349 / 500 km.
+- Pune to Kolhapur: added, Rs 7,349 / 500 km.
+- Pune to Satara: added, Rs 4,399 / 300 km.
+- Local packages: Half-Day/Full-Day/Extended Local added.
+
+### B. In the price sheet but missing from the website
+All 14 outstation routes and 3 local packages are now present in the catalogue and booking selector.
+
+### C. On the website but not covered by the price sheet
+- Jejuri Darshan (Rs 2,999) - no matching price-sheet entry.
+- Bhuleshwar + Jejuri (Rs 3,299) - no matching price-sheet entry.
+- Raigad Fort (Rs 4,499) - no matching price-sheet entry.
+- Mulshi & Tamhini (Rs 3,499) - no matching price-sheet entry.
+- Pune Heritage (Rs 2,499) - no matching price-sheet entry.
+- Sinhagad + Khadakwasla (Rs 2,499) - no matching price-sheet entry.
+- Matheran (quote) - no matching price-sheet entry.
+- Bhandardara (quote) - no matching price-sheet entry.
+- Pratapgad (quote) - no matching price-sheet entry.
+- Shivneri (quote) - no matching price-sheet entry.
+- Ajanta & Ellora (quote) - no matching price-sheet entry.
+- Alandi & Dehu (quote) - no matching price-sheet entry.
+- Ashtavinayak (quote) - covered by Ganpati Special packages.
+- Ganpati Special packages (Rs 3,999 to Rs 8,499) - not listed in the new price sheet; retained at existing regular prices for review.
+
+### Route discrepancies
+- Lonavala & Khandala includes Khandala; price sheet lists Pune to Lonavala only.
+- Mahabaleshwar & Panchgani includes Panchgani; price sheet lists Pune to Mahabaleshwar only.
+- Nashik & Trimbakeshwar includes Nashik; price sheet lists Pune to Trimbakeshwar only.
+- Shirdi Darshan itinerary should be reviewed against the 400 km Shirdi package.
+- Bhimashankar Yatra should be reviewed against the 300 km Bhimashankar package.
+
+### Removed promotions
+- Removed Ganpati launch offer labels, launch prices, and related calculations.
+- Removed expired minimum-fare restriction for the festive offer.

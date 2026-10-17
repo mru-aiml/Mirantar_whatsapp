@@ -1,108 +1,80 @@
 /*
- * ═══════════════════════════════════════════════════════════════════
- *  MIRANTAR PRICING CONTROL PANEL
- * ═══════════════════════════════════════════════════════════════════
- *  Change prices, included kilometres and extra-km rates HERE.
- *
- *  DO NOT modify individual components to change prices.
- *
- *  HOW TO:
- *  - Change a package price      → edit `regularPrice` below.
- *  - Change included kilometres  → edit `includedKm` for that package.
- *  - Change the extra-km rate     → edit `extraKmRate` (per package,
- *                                   or `distance.extraKmRate` default).
- *  - Change the Ganpati discount  → edit `ganpatiLaunchOffer`.
- *  - Disable the launch offer     → set `ganpatiLaunchOffer.enabled`
- *                                   to false (launch prices hide
- *                                   automatically site-wide).
- *  - Hide a package               → set its `enabled` to false.
- *  - Change the booking advance    → edit `booking.advanceAmount`.
- *                                     (Adjusted against the final trip
- *                                     fare — it is NOT an extra charge.)
- *
- *  All prices are in INR, per vehicle (NOT per person).
+ * MIRANTAR PRICING CONTROL PANEL
  */
 
 export const pricingConfig = {
   currency: 'INR',
 
-  // ── Booking advance (reservation) ──────────────────────────────────
-  // Required to reserve the Ertiga for a selected date. Adjusted
-  // against the final trip fare — never added on top of it.
   booking: {
     advanceAmount: 500,
   },
 
-  // ── Ganpati seasonal offer ─────────────────────────────────────────
-  ganpatiLaunchOffer: {
+  festiveOffer: {
     enabled: true,
-    discountPerVehicle: 500,
-    label: 'Ganpati Launch Offer',
+    code: 'FESTIVE500',
+    discountAmount: 500,
+    minRegularFare: 0,
+    eligibleTripTypes: ['outstation', 'outstation one-way'],
+    maxConfirmedBookings: 10,
+    allowCombination: false,
+    label: 'Mirantar Festive Getaways',
   },
 
-  // ── General distance pricing defaults ──────────────────────────────
-  // Per-package values below take precedence over these defaults.
+  airportTransfer: {
+    startingPrice: 799,
+    currency: 'INR',
+  },
+
+  extraHourRate: 300,
+
   distance: {
     defaultIncludedKm: 200,
-    extraKmRate: 18,
+    extraKmRate: 15,
   },
 
-  // ── Fixed packages (keys are referenced by src/data/ganpatiPackages.js)
-  // ── includedKm / extraKmRate differ per package — keep them here. ──
-  // NOTE (owner price table): Morya 4499 / Vighnaharta 4999 /
-  // Konkan 6499 / Maha 8499 / Pune Circuit 3999.
   packages: {
-    puneGanpatiCircuit: {
-      regularPrice: 3999,
-      includedKm: 180,
-      extraKmRate: 18,
-      enabled: true,
-    },
-
-    vighnahartaYatra: {
-      regularPrice: 4999,
-      includedKm: 260,
-      extraKmRate: 18,
-      enabled: true,
-    },
-
-    moryaDarshan: {
-      regularPrice: 4499,
-      includedKm: 250,
-      extraKmRate: 18,
-      enabled: true,
-    },
-
-    konkanGanpatiYatra: {
-      regularPrice: 6499,
-      includedKm: 300,
-      extraKmRate: 18,
-      enabled: true,
-    },
-
-    mahaAshtavinayakDayYatra: {
-      regularPrice: 8499,
-      includedKm: 350,
-      extraKmRate: 18,
-      enabled: true,
-    },
+    puneGanpatiCircuit: { regularPrice: 3999, includedKm: 180, extraKmRate: 15, enabled: true },
+    vighnahartaYatra: { regularPrice: 4999, includedKm: 260, extraKmRate: 15, enabled: true },
+    moryaDarshan: { regularPrice: 4499, includedKm: 250, extraKmRate: 15, enabled: true },
+    konkanGanpatiYatra: { regularPrice: 6499, includedKm: 300, extraKmRate: 15, enabled: true },
+    mahaAshtavinayakDayYatra: { regularPrice: 8499, includedKm: 350, extraKmRate: 15, enabled: true },
   },
 
-  // ── General tour prices (keys are referenced by src/data/tours.js) ──
-  // All prices are PER VEHICLE (Ertiga, up to 6 passengers).
-  // Tours WITHOUT an entry here show "Get a Quote" site-wide.
-  // (Owner price table; extraKmRate falls back to distance.extraKmRate.)
   tours: {
-    puneHeritage: { price: 2499, includedKm: 80 },
-    sinhagadKhadakwasla: { price: 2499, includedKm: 100 },
-    mulshiTamhini: { price: 3499, includedKm: 150 },
-    lonavalaKhandala: { price: 3499, includedKm: 160 },
-    jejuriDarshan: { price: 2999, includedKm: 130 },
-    bhuleshwarJejuri: { price: 3299, includedKm: 150 },
-    bhimashankarYatra: { price: 3999, includedKm: 220 },
-    raigadFort: { price: 4499, includedKm: 260 },
-    mahabaleshwarPanchgani: { price: 4999, includedKm: 300 },
-    shirdiDarshan: { price: 5499, includedKm: 400 },
-    nashikTrimbakeshwar: { price: 5499, includedKm: 420 },
+    // Local packages
+    halfDayLocal: { price: 1949, includedKm: 60, includedHours: 6, extraKmRate: 15, tripType: 'local', enabled: true },
+    fullDayLocal: { price: 2449, includedKm: 120, includedHours: 8, extraKmRate: 15, tripType: 'local', enabled: true },
+    extendedLocal: { price: 3399, includedKm: 250, includedHours: 12, extraKmRate: 15, tripType: 'local', enabled: true },
+
+    // Outstation routes
+    puneMumbaiOneWay: { price: 3149, includedKm: 0, extraKmRate: 15, tripType: 'outstation one-way', oneWay: true, enabled: true },
+    puneMumbaiRoundTrip: { price: 4849, includedKm: 300, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    puneLonavala: { price: 4399, includedKm: 300, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    puneBhimashankar: { price: 4399, includedKm: 300, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    puneMahabaleshwar: { price: 4899, includedKm: 300, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    puneShirdi: { price: 5849, includedKm: 400, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    puneGoa: { price: 14499, includedKm: 1000, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    puneTrimbakeshwar: { price: 7349, includedKm: 500, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    puneTuljapur: { price: 8399, includedKm: 600, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    punePandharpur: { price: 7349, includedKm: 500, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    puneAkkalkot: { price: 9099, includedKm: 650, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    puneSolapur: { price: 7349, includedKm: 500, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    puneKolhapur: { price: 7349, includedKm: 500, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    puneSatara: { price: 4399, includedKm: 300, extraKmRate: 15, tripType: 'outstation', enabled: true },
+
+    // Existing non-sheet tours retained with prior configured prices
+    puneHeritage: { price: 2499, includedKm: 80, extraKmRate: 15, tripType: 'local', enabled: true },
+    sinhagadKhadakwasla: { price: 2499, includedKm: 100, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    mulshiTamhini: { price: 3499, includedKm: 150, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    jejuriDarshan: { price: 2999, includedKm: 130, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    bhuleshwarJejuri: { price: 3299, includedKm: 150, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    raigadFort: { price: 4499, includedKm: 260, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    matheran: { price: null, includedKm: 200, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    bhandardara: { price: null, includedKm: 200, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    pratapgad: { price: null, includedKm: 200, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    shivneri: { price: null, includedKm: 200, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    ajantaEllora: { price: null, includedKm: 200, extraKmRate: 15, tripType: 'outstation', enabled: true },
+    alandiDehu: { price: null, includedKm: 200, extraKmRate: 15, tripType: 'local', enabled: true },
+    ashtavinayak: { price: null, includedKm: 200, extraKmRate: 15, tripType: 'outstation', enabled: true },
   },
 };
