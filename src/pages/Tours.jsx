@@ -6,12 +6,14 @@ import TourGrid from '../components/TourGrid.jsx';
 import WhatsAppCTA from '../components/WhatsAppCTA.jsx';
 import { TOURS, TOUR_CATEGORIES } from '../data/tours.js';
 import { IMAGES } from '../data/images.js';
+import { useReveal } from '../hooks/useReveal.js';
 
 export default function Tours() {
   const [params] = useSearchParams();
   const initial = params.get('cat') || 'All';
   const [cat, setCat] = useState(initial);
   const filtered = useMemo(() => (cat === 'All' ? TOURS : TOURS.filter((t) => t.category === cat)), [cat]);
+  useReveal(cat);
 
   return (
     <>
