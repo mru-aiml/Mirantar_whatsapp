@@ -74,6 +74,13 @@ export const tourImages = {
   puneHeritage: '/images/tours/pune_heritage.jpg',
   custom: '/images/tours/custom.jpg',
   ganpati: '/images/tours/ganpati.jpg',
+  // Destination-specific branded SVGs (generated when no photo is available)
+  tuljapur: '/images/tours/tuljapur.svg',
+  pandharpur: '/images/tours/pandharpur.svg',
+  akkalkot: '/images/tours/akkalkot.svg',
+  solapur: '/images/tours/solapur.svg',
+  kolhapur: '/images/tours/kolhapur.svg',
+  satara: '/images/tours/satara.svg',
 };
 
 /** Meaningful alt text per tour image (SEO / accessibility). */
@@ -97,6 +104,12 @@ export const tourImageAlts = {
   puneHeritage: 'Pune Heritage Tour with Mirantar',
   custom: 'Custom road trip from Pune',
   ganpati: 'Ashtavinayak Morya Darshan with Mirantar',
+  tuljapur: 'Tulja Bhavani Temple darshan at Tuljapur with Mirantar',
+  pandharpur: 'Vitthal Rukmini Temple darshan at Pandharpur with Mirantar',
+  akkalkot: 'Swami Samarth Maharaj darshan at Akkalkot with Mirantar',
+  solapur: 'Solapur private outstation trip with Mirantar',
+  kolhapur: 'Mahalakshmi Temple and Kolhapur trip with Mirantar',
+  satara: 'Satara and Ajinkyatara Fort trip with Mirantar',
 };
 
 /** Neutral branded fallback shown if any image fails to load. */

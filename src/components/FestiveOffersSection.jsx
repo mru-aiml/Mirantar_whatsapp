@@ -22,9 +22,9 @@ export default function FestiveOffersSection() {
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="eyebrow">Limited festive offer</p>
-            <h2 className="font-display text-3xl sm:text-4xl font-semibold text-navy">Festive Offers on Outstation Round Trips</h2>
+            <h2 className="font-display text-3xl sm:text-4xl font-semibold text-navy">Festive Offers on Outstation Packages</h2>
             <p className="mt-2 max-w-2xl text-sm sm:text-base text-slate-600">
-              Save {formatINR(discount)} on eligible outstation packages. Offer code {code}. Availability and eligibility confirmed by Mirantar.
+              Save {formatINR(discount)} on eligible outstation packages — round-trips and one-way transfers. Offer code <span className="font-mono font-semibold">{code}</span>. Local packages and airport transfers are not eligible. Availability and eligibility confirmed by Mirantar.
             </p>
           </div>
           <span className="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-2 text-xs font-bold text-navy-950">
@@ -89,7 +89,7 @@ export default function FestiveOffersSection() {
         </div>
 
         <p className="mt-6 text-center text-xs leading-relaxed text-slate-500">
-          Offer applies to eligible outstation packages. Availability and eligibility will be confirmed by Mirantar.
+          Offer applies to eligible outstation packages (round-trips and one-way transfers). Local packages and airport transfers are excluded. Limited to the first 10 confirmed bookings — availability confirmed by Mirantar on WhatsApp.
         </p>
       </div>
     </section>

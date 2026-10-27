@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Kolhapur outstation trip with Mirantar">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1a0a2e"/>
+      <stop offset="0.5" stop-color="#14315A"/>
+      <stop offset="1" stop-color="#0B1F3A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <!-- Stars -->
+  <circle cx="100" cy="65" r="2" fill="#EFD096" opacity="0.7"/>
+  <circle cx="280" cy="42" r="1.5" fill="#EFD096" opacity="0.6"/>
+  <circle cx="750" cy="58" r="2" fill="#EFD096" opacity="0.8"/>
+  <circle cx="1000" cy="48" r="1.5" fill="#EFD096" opacity="0.7"/>
+  <!-- Kolhapur Mahalakshmi Temple (Ambabai) - distinctive Chalukya style -->
+  <!-- Shikhara - Nagara style dome -->
+  <ellipse cx="600" cy="130" rx="35" ry="40" fill="#D99A2B" opacity="0.9"/>
+  <!-- Kalash -->
+  <ellipse cx="600" cy="88" rx="11" ry="14" fill="#D99A2B"/>
+  <rect x="597" y="102" width="6" height="24" fill="#C8892A"/>
+  <!-- Amalaka (ribbed disc) -->
+  <ellipse cx="600" cy="99" rx="20" ry="8" fill="#B87A24"/>
+  <!-- Shikhara layers -->
+  <polygon points="558,170 600,95 642,170" fill="#C8892A" opacity="0.95"/>
+  <rect x="543" y="170" width="114" height="16" fill="#B87A24"/>
+  <polygon points="525,186 600,140 675,186" fill="#D99A2B" opacity="0.85"/>
+  <rect x="508" y="186" width="184" height="18" fill="#A06820"/>
+  <!-- Temple main hall (gabhara) -->
+  <rect x="520" y="204" width="160" height="105" fill="#8B5E14" opacity="0.95"/>
+  <!-- Makara torana entrance -->
+  <path d="M562,309 L562,260 Q600,240 638,260 L638,309 Z" fill="#3C2406"/>
+  <!-- Sabhamandap -->
+  <rect x="456" y="236" width="288" height="73" fill="#7A5210" opacity="0.9"/>
+  <!-- Columns -->
+  <rect x="456" y="236" width="12" height="73" fill="#6A4410"/>
+  <rect x="482" y="236" width="12" height="73" fill="#6A4410"/>
+  <rect x="706" y="236" width="12" height="73" fill="#6A4410"/>
+  <rect x="732" y="236" width="12" height="73" fill="#6A4410"/>
+  <!-- Deepmalas -->
+  <rect x="400" y="210" width="10" height="99" fill="#C8892A" opacity="0.85"/>
+  <ellipse cx="405" cy="207" rx="15" ry="9" fill="#D99A2B"/>
+  <rect x="790" y="210" width="10" height="99" fill="#C8892A" opacity="0.85"/>
+  <ellipse cx="795" cy="207" rx="15" ry="9" fill="#D99A2B"/>
+  <!-- Temple base / jagati -->
+  <rect x="440" y="309" width="320" height="16" fill="#5A3A0A"/>
+  <rect x="422" y="325" width="356" height="12" fill="#4A2E08"/>
+  <rect x="404" y="337" width="392" height="10" fill="#3C2406"/>
+  <!-- Panchaganga river suggestion -->
+  <path d="M0 500 Q300 480 600 492 Q900 504 1200 488 L1200 530 Q900 545 600 533 Q300 521 0 535 Z" fill="#1a3a6a" opacity="0.5"/>
+  <!-- Ground -->
+  <path d="M0 530 L300 505 L600 518 L900 500 L1200 520 L1200 800 L0 800 Z" fill="#071527" opacity="0.95"/>
+  <rect x="100" y="700" width="1000" height="2" fill="#D99A2B" opacity="0.5"/>
+  <!-- Text -->
+  <text x="600" y="635" text-anchor="middle" font-family="Georgia,serif" font-size="48" font-weight="bold" letter-spacing="5" fill="#FFFFFF">KOLHAPUR</text>
+  <text x="600" y="675" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" letter-spacing="2" fill="#EFD096">Mahalakshmi Temple · with Mirantar</text>
+</svg>

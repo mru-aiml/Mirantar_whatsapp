@@ -25,7 +25,7 @@ export const FAQS = [
   {
     q: 'What is the Mirantar Festive Offer?',
     a: isFestiveOfferEnabled()
-      ? `Eligible outstation packages receive ${formatINR(getFestiveDiscountAmount())} off using code ${getFestiveOfferCode()}. Local packages, airport transfers and custom quotes are not eligible unless configured.`
+      ? `Eligible outstation packages receive ${formatINR(getFestiveDiscountAmount())} off using code ${getFestiveOfferCode()}. This includes outstation round-trips and one-way outstation transfers. Local packages and airport transfers are not eligible. Limited to the first ${getFestiveMaxConfirmedBookings()} confirmed bookings across the campaign.`
       : 'The festive offer is currently disabled.',
   },
   {
@@ -34,11 +34,15 @@ export const FAQS = [
   },
   {
     q: 'Who is eligible for the festive offer?',
-    a: 'Eligible outstation packages only. Local packages, airport transfers and custom quotes are not eligible unless configured. Mirantar confirms availability and eligibility.',
+    a: 'Outstation packages — both round-trips and one-way transfers. Local packages, airport transfers and custom quotes are not eligible. There is no minimum fare requirement. Mirantar confirms availability and eligibility on WhatsApp.',
   },
   {
     q: 'How do I claim the festive offer?',
     a: `Enter offer code ${getFestiveOfferCode()} in the booking form or use a festive offer booking button. Submitting the form sends a request only; the booking is confirmed after Mirantar confirms availability and receives the required advance.`,
+  },
+  {
+    q: 'Is the first-10-bookings limit guaranteed by the website?',
+    a: `The limit of ${getFestiveMaxConfirmedBookings()} confirmed bookings is a campaign rule. Because bookings are confirmed by Mirantar manually on WhatsApp, the website cannot automatically enforce this cap. Mirantar tracks confirmed bookings and will disable the offer once ${getFestiveMaxConfirmedBookings()} are confirmed. Always confirm availability with Mirantar before booking.`,
   },
 ];
 

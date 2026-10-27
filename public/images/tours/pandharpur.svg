@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Pandharpur — Vitthal Rukmini Temple with Mirantar">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1a2a4a"/>
+      <stop offset="0.55" stop-color="#0E2140"/>
+      <stop offset="1" stop-color="#071527"/>
+    </linearGradient>
+    <linearGradient id="river" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1a3a6a"/>
+      <stop offset="0.5" stop-color="#1d4d88" opacity="0.7"/>
+      <stop offset="1" stop-color="#1a3a6a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <!-- Moon reflection on river atmosphere -->
+  <ellipse cx="600" cy="200" rx="40" ry="40" fill="#EFD096" opacity="0.15"/>
+  <circle cx="600" cy="200" r="28" fill="#EFD096" opacity="0.3"/>
+  <!-- Stars -->
+  <circle cx="100" cy="70" r="1.5" fill="#EFD096" opacity="0.7"/>
+  <circle cx="250" cy="45" r="2" fill="#EFD096" opacity="0.5"/>
+  <circle cx="800" cy="65" r="1.5" fill="#EFD096" opacity="0.8"/>
+  <circle cx="1050" cy="50" r="2" fill="#EFD096" opacity="0.6"/>
+  <!-- Vitthal Temple - distinctive Hemadpanthi style with large gopuram -->
+  <!-- Kalash at top -->
+  <ellipse cx="600" cy="88" rx="12" ry="16" fill="#D99A2B"/>
+  <rect x="597" y="104" width="6" height="15" fill="#D99A2B"/>
+  <!-- Shikhara layers -->
+  <polygon points="570,119 600,85 630,119" fill="#D99A2B" opacity="0.95"/>
+  <rect x="558" y="119" width="84" height="14" fill="#C8892A"/>
+  <polygon points="544,133 600,102 656,133" fill="#D99A2B" opacity="0.9"/>
+  <rect x="530" y="133" width="140" height="14" fill="#B87A24"/>
+  <polygon points="514,147 600,114 686,147" fill="#D99A2B" opacity="0.85"/>
+  <rect x="500" y="147" width="200" height="18" fill="#A06820"/>
+  <!-- Temple body with arched entrance -->
+  <rect x="516" y="165" width="168" height="120" fill="#8B5E14"/>
+  <!-- Arched doorway -->
+  <path d="M568,285 L568,230 Q600,210 632,230 L632,285 Z" fill="#4A2E08"/>
+  <!-- Nagarkhana / sabhamandap -->
+  <rect x="470" y="220" width="260" height="65" fill="#7A5210"/>
+  <!-- Deepmalas flanking temple -->
+  <rect x="410" y="195" width="10" height="90" fill="#C8892A" opacity="0.9"/>
+  <ellipse cx="415" cy="192" rx="12" ry="8" fill="#D99A2B"/>
+  <rect x="780" y="195" width="10" height="90" fill="#C8892A" opacity="0.9"/>
+  <ellipse cx="785" cy="192" rx="12" ry="8" fill="#D99A2B"/>
+  <!-- Temple base and steps -->
+  <rect x="455" y="285" width="290" height="18" fill="#5A3A0A"/>
+  <rect x="440" y="303" width="320" height="14" fill="#4A2E08"/>
+  <rect x="420" y="317" width="360" height="12" fill="#3C2406"/>
+  <!-- Bhima river ghats -->
+  <path d="M0 480 Q200 460 400 475 Q600 490 800 468 Q1000 446 1200 470 L1200 540 Q1000 520 800 530 Q600 540 400 525 Q200 510 0 525 Z" fill="url(#river)" opacity="0.7"/>
+  <!-- Ghat steps -->
+  <path d="M0 540 L1200 540 L1200 560 Q900 548 600 556 Q300 564 0 556 Z" fill="#1a3560" opacity="0.8"/>
+  <!-- Ground -->
+  <path d="M0 560 L300 520 L500 540 L700 510 L900 535 L1200 518 L1200 800 L0 800 Z" fill="#071527" opacity="0.95"/>
+  <!-- Ground line -->
+  <rect x="100" y="700" width="1000" height="2" fill="#D99A2B" opacity="0.5"/>
+  <!-- Wari footprints suggestion - small dots on ground -->
+  <circle cx="480" cy="460" r="3" fill="#EFD096" opacity="0.25"/>
+  <circle cx="510" cy="452" r="3" fill="#EFD096" opacity="0.2"/>
+  <circle cx="540" cy="458" r="3" fill="#EFD096" opacity="0.25"/>
+  <!-- Text -->
+  <text x="600" y="630" text-anchor="middle" font-family="Georgia,serif" font-size="48" font-weight="bold" letter-spacing="5" fill="#FFFFFF">PANDHARPUR</text>
+  <text x="600" y="672" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" letter-spacing="2" fill="#EFD096">Vitthal Rukmini Temple · with Mirantar</text>
+</svg>

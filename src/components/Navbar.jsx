@@ -77,6 +77,9 @@ export default function Navbar() {
                 {l.label}
               </NavLink>
             ))}
+            <span className="mx-1 h-5 w-px bg-white/20" aria-hidden="true" />
+            <NavLink to="/reviews" className={({ isActive }) => `rounded-full px-3 py-2 text-xs font-semibold transition-colors ${isActive ? 'bg-white/15 text-gold-200' : 'text-white/60 hover:bg-white/10 hover:text-white'}`}>Reviews</NavLink>
+            <NavLink to="/join-us" className={({ isActive }) => `rounded-full px-3 py-2 text-xs font-semibold transition-colors ${isActive ? 'bg-white/15 text-gold-200' : 'text-white/60 hover:bg-white/10 hover:text-white'}`}>Join Us</NavLink>
           </div>
           <div className="hidden lg:flex items-center gap-3">
             <a href={getCallLink()} className="btn-outline !px-5 !py-2.5 text-sm">
@@ -119,6 +122,22 @@ export default function Navbar() {
                 className="rounded-xl px-4 py-3 text-base font-semibold text-white/90 hover:bg-white/10"
               >
                 Custom Trip / Get a Quote
+              </NavLink>
+              <NavLink
+                to="/reviews"
+                className={({ isActive }) =>
+                  `rounded-xl px-4 py-3 text-base font-semibold ${isActive ? 'bg-white/15 text-gold-200' : 'text-white/90 hover:bg-white/10'}`
+                }
+              >
+                Reviews
+              </NavLink>
+              <NavLink
+                to="/join-us"
+                className={({ isActive }) =>
+                  `rounded-xl px-4 py-3 text-base font-semibold ${isActive ? 'bg-white/15 text-gold-200' : 'text-white/90 hover:bg-white/10'}`
+                }
+              >
+                Join Us
               </NavLink>
             </div>
             <div className="mt-auto flex flex-col gap-3 pt-6">

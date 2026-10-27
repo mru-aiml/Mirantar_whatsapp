@@ -121,6 +121,8 @@ export function isFestiveTripTypeEligible(tripType) {
 export function isFestiveEligibleOffer(price, tripType) {
   if (!isFestiveOfferEnabled()) return false;
   if (price === null || price === undefined) return false;
+  // minRegularFare is 0 in config (no minimum fare requirement);
+  // only the tripType gate applies for local vs outstation distinction.
   if (!isFestiveTripTypeEligible(tripType)) return false;
   return true;
 }
@@ -183,9 +185,24 @@ export function getFestiveDiscountAmount() {
 }
 
 export function getFestiveMinRegularFare() {
-  return clampNonNegative(pricingConfig.festiveOffer?.minRegularFare ?? 4000);
+  // Returns 0 when config sets minRegularFare: 0 (no minimum fare requirement).
+  // Fallback is also 0 to reflect the same intent if the field is absent.
+  return clampNonNegative(pricingConfig.festiveOffer?.minRegularFare ?? 0);
 }
 
+/**
+ * Maximum number of confirmed bookings for the festive campaign.
+ * ⚠️  FRONTEND LIMITATION: This value is read from config and displayed in
+ * the UI, but it CANNOT be securely enforced in a frontend-only app.
+ * The booking flow uses WhatsApp; there is no server or database counting
+ * confirmed bookings in real time. The business owner must track the count
+ * manually and disable the offer (set enabled: false in pricingConfig.js)
+ * once 10 bookings are confirmed.
+ *
+ * For reliable automated enforcement, add a lightweight backend:
+ *   Recommended: Firebase Firestore — one document per campaign, increment
+ *   a counter on each confirmed booking, disable the offer when count >= max.
+ */
 export function getFestiveMaxConfirmedBookings() {
   return clampNonNegative(pricingConfig.festiveOffer?.maxConfirmedBookings ?? 10);
 }

@@ -13,6 +13,8 @@ import Pricing from './pages/Pricing.jsx';
 import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import CustomTrip from './pages/CustomTrip.jsx';
+import JoinUs from './pages/JoinUs.jsx';
+import Reviews from './pages/Reviews.jsx';
 import NotFound from './pages/NotFound.jsx';
 import { useReveal } from './hooks/useReveal.js';
 
@@ -54,6 +56,8 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/custom-trip" element={<CustomTrip />} />
           <Route path="/quote" element={<CustomTrip />} />
+          <Route path="/join-us" element={<JoinUs />} />
+          <Route path="/reviews" element={<Reviews />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

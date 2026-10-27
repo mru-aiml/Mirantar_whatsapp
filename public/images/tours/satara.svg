@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Satara outstation trip — Ajinkyatara Fort with Mirantar">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d1f3c"/>
+      <stop offset="0.6" stop-color="#14315A"/>
+      <stop offset="1" stop-color="#0B1F3A"/>
+    </linearGradient>
+    <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a1a08"/>
+      <stop offset="1" stop-color="#071527"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <!-- Stars / moon -->
+  <circle cx="180" cy="65" r="2" fill="#EFD096" opacity="0.7"/>
+  <circle cx="400" cy="45" r="1.5" fill="#EFD096" opacity="0.6"/>
+  <circle cx="850" cy="55" r="2" fill="#EFD096" opacity="0.8"/>
+  <circle cx="1070" cy="70" r="1.5" fill="#EFD096" opacity="0.7"/>
+  <circle cx="950" cy="40" r="10" fill="#EFD096" opacity="0.15"/>
+  <circle cx="950" cy="40" r="6" fill="#EFD096" opacity="0.25"/>
+  <!-- Ajinkyatara Fort on hilltop - Satara's iconic fort -->
+  <!-- Hill silhouette -->
+  <path d="M350 500 Q500 280 600 260 Q700 240 800 290 Q900 340 950 500 Z" fill="url(#hill)" opacity="0.95"/>
+  <!-- Fort walls on hilltop -->
+  <rect x="490" y="295" width="220" height="75" fill="#3A2A10" opacity="0.9"/>
+  <!-- Fort bastions -->
+  <ellipse cx="490" cy="300" rx="22" ry="20" fill="#4A3415" opacity="0.9"/>
+  <ellipse cx="710" cy="300" rx="22" ry="20" fill="#4A3415" opacity="0.9"/>
+  <!-- Merlons -->
+  <rect x="492" y="286" width="14" height="12" fill="#5A4020"/>
+  <rect x="516" y="286" width="14" height="12" fill="#5A4020"/>
+  <rect x="540" y="286" width="14" height="12" fill="#5A4020"/>
+  <rect x="630" y="286" width="14" height="12" fill="#5A4020"/>
+  <rect x="654" y="286" width="14" height="12" fill="#5A4020"/>
+  <rect x="678" y="286" width="14" height="12" fill="#5A4020"/>
+  <!-- Fort gate -->
+  <rect x="574" y="305" width="52" height="65" fill="#1a0e04"/>
+  <path d="M574,322 Q600,302 626,322" fill="#1a0e04"/>
+  <!-- Flagpole on fort -->
+  <rect x="598" y="258" width="4" height="34" fill="#C8892A"/>
+  <polygon points="602,258 625,265 602,272" fill="#FF6B1A" opacity="0.8"/>
+  <!-- Sajjangad distant hill (Krishna Maa Smadhi context) -->
+  <path d="M100 490 Q200 370 280 380 Q330 385 360 420 Q400 460 420 500 Z" fill="#1a1008" opacity="0.7"/>
+  <!-- Valley / plateau landscape -->
+  <path d="M0 500 L200 460 L350 500 L600 455 L850 490 L1000 465 L1200 495 L1200 800 L0 800 Z" fill="#071527" opacity="0.95"/>
+  <!-- Krishna river suggestion at bottom -->
+  <path d="M0 640 Q200 628 400 635 Q600 642 800 630 Q1000 618 1200 628 L1200 650 Q1000 638 800 645 Q600 652 400 645 Q200 638 0 650 Z" fill="#1a3a6a" opacity="0.5"/>
+  <!-- Ground line -->
+  <rect x="100" y="700" width="1000" height="2" fill="#D99A2B" opacity="0.5"/>
+  <!-- Text -->
+  <text x="600" y="630" text-anchor="middle" font-family="Georgia,serif" font-size="48" font-weight="bold" letter-spacing="5" fill="#FFFFFF">SATARA</text>
+  <text x="600" y="672" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" letter-spacing="2" fill="#EFD096">Ajinkyatara Fort · with Mirantar</text>
+</svg>

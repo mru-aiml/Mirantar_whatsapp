@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { MessageCircle, Plane, Clock, Route as RouteIcon, Wallet, Tag } from 'lucide-react';
 import SectionHeader from '../components/SectionHeader.jsx';
 import { TOURS } from '../data/tours.js';
-import { formatINR, getBookingAdvance, getAirportTransferStartingPrice, getExtraHourRate, isFestiveOfferEnabled, getFestiveOfferCode, getFestiveDiscountAmount, getFestiveMinRegularFare, calculateFestivePrice } from '../utils/pricing.js';
+import { formatINR, getBookingAdvance, getAirportTransferStartingPrice, getExtraHourRate, isFestiveOfferEnabled, getFestiveOfferCode, getFestiveDiscountAmount, isFestiveEligibleOffer, calculateFestivePrice } from '../utils/pricing.js';
 import { createWhatsAppLink } from '../utils/whatsapp.js';
 import { IMAGES } from '../data/images.js';
 
@@ -13,7 +13,6 @@ export default function Pricing() {
   const festiveEnabled = isFestiveOfferEnabled();
   const festiveCode = getFestiveOfferCode();
   const festiveDiscount = getFestiveDiscountAmount();
-  const festiveMin = getFestiveMinRegularFare();
   const pricedTours = TOURS.filter((t) => t.price !== null && t.price !== undefined);
 
   return (
@@ -36,7 +35,7 @@ export default function Pricing() {
                 <p className="eyebrow">Limited festive offer</p>
                 <h2 className="font-display text-2xl sm:text-3xl font-semibold text-navy">Festive Offer: Save {formatINR(festiveDiscount)}</h2>
                 <p className="mt-2 text-sm text-slate-600">
-                  Eligible outstation packages. Offer code {festiveCode}. Not a permanent price change.
+                  Eligible outstation packages (round-trips and one-way transfers). Offer code {festiveCode}. Local packages and airport transfers excluded. Not a permanent price change.
                 </p>
               </div>
               <span className="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-2 text-xs font-bold text-navy-950">
@@ -66,7 +65,7 @@ export default function Pricing() {
                     <td className="px-4 py-3 text-slate-700">{formatINR(t.price)}</td>
                     {festiveEnabled && (
                       <td className="px-4 py-3 font-semibold text-gold-600">
-                        {t.price >= festiveMin ? formatINR(calculateFestivePrice(t.price)) : 'Not eligible'}
+                        {isFestiveEligibleOffer(t.price, t.tripType) ? formatINR(calculateFestivePrice(t.price)) : 'Not eligible'}
                       </td>
                     )}
                     <td className="px-4 py-3 text-slate-700">Up to {t.includedKm} km</td>

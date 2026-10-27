@@ -180,7 +180,7 @@ export default function BookingForm({ presetTour = '', ganpatiPkg = null, tourPr
         )}
         {offerCode.trim() && !festiveEligible && isFestiveOfferEnabled() && (
           <span className="block text-xs text-slate-600 mt-1.5">
-            Festive offer not applied: enter {getFestiveOfferCode()} for an eligible outstation package.
+            Festive offer not applied: enter {getFestiveOfferCode()} for an eligible outstation package (round-trip or one-way).
           </span>
         )}
         <span className="block text-xs text-slate-600 mt-1.5">

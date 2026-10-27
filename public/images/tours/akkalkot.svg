@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Akkalkot — Swami Samarth Maharaj with Mirantar">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d1f3c"/>
+      <stop offset="0.5" stop-color="#14315A"/>
+      <stop offset="1" stop-color="#0B1F3A"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="30%">
+      <stop offset="0" stop-color="#D99A2B" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#D99A2B" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <rect width="1200" height="800" fill="url(#glow)"/>
+  <!-- Stars -->
+  <circle cx="80" cy="60" r="2" fill="#EFD096" opacity="0.7"/>
+  <circle cx="200" cy="90" r="1.5" fill="#EFD096" opacity="0.6"/>
+  <circle cx="400" cy="50" r="2" fill="#EFD096" opacity="0.8"/>
+  <circle cx="900" cy="70" r="1.5" fill="#EFD096" opacity="0.7"/>
+  <circle cx="1100" cy="55" r="2" fill="#EFD096" opacity="0.6"/>
+  <!-- Swami Samarth Math / temple silhouette -->
+  <!-- Central dome / shikhara -->
+  <ellipse cx="600" cy="145" rx="30" ry="35" fill="#D99A2B" opacity="0.9"/>
+  <rect x="588" y="140" width="24" height="30" fill="#C8892A"/>
+  <!-- Kalash -->
+  <ellipse cx="600" cy="108" rx="10" ry="13" fill="#D99A2B"/>
+  <rect x="597" y="121" width="6" height="20" fill="#C8892A"/>
+  <!-- Shikhara body -->
+  <polygon points="560,175 600,110 640,175" fill="#B87A24" opacity="0.9"/>
+  <rect x="545" y="175" width="110" height="16" fill="#C8892A" opacity="0.85"/>
+  <polygon points="528,191 600,148 672,191" fill="#D99A2B" opacity="0.8"/>
+  <rect x="512" y="191" width="176" height="18" fill="#B87A24" opacity="0.85"/>
+  <!-- Math hall / sabhamandap -->
+  <rect x="490" y="209" width="220" height="90" fill="#8B5E14" opacity="0.95"/>
+  <!-- Arched doorway -->
+  <path d="M558,299 L558,255 Q600,237 642,255 L642,299 Z" fill="#3C2406"/>
+  <!-- Pillared verandah -->
+  <rect x="440" y="235" width="16" height="64" fill="#7A5210"/>
+  <rect x="466" y="235" width="16" height="64" fill="#7A5210"/>
+  <rect x="718" y="235" width="16" height="64" fill="#7A5210"/>
+  <rect x="744" y="235" width="16" height="64" fill="#7A5210"/>
+  <rect x="436" y="232" width="336" height="10" fill="#C8892A" opacity="0.8"/>
+  <!-- Peepal tree suggestion (sacred tree associated with Swami Samarth) -->
+  <ellipse cx="820" cy="280" rx="55" ry="65" fill="#1a3a1a" opacity="0.7"/>
+  <rect x="816" y="295" width="8" height="60" fill="#2a1a08" opacity="0.9"/>
+  <ellipse cx="370" cy="285" rx="45" ry="55" fill="#1a3a1a" opacity="0.6"/>
+  <rect x="366" y="298" width="8" height="56" fill="#2a1a08" opacity="0.9"/>
+  <!-- Temple base / jagati -->
+  <rect x="465" y="299" width="270" height="16" fill="#5A3A0A"/>
+  <rect x="448" y="315" width="304" height="12" fill="#4A2E08"/>
+  <rect x="430" y="327" width="340" height="10" fill="#3C2406"/>
+  <!-- Saffron flag suggestion -->
+  <rect x="598" y="84" width="3" height="28" fill="#C8892A"/>
+  <polygon points="601,84 630,92 601,100" fill="#FF6B1A" opacity="0.85"/>
+  <!-- Ground -->
+  <path d="M0 540 L250 500 L450 520 L600 505 L750 522 L950 510 L1200 530 L1200 800 L0 800 Z" fill="#071527" opacity="0.95"/>
+  <!-- Ground accent line -->
+  <rect x="100" y="700" width="1000" height="2" fill="#D99A2B" opacity="0.5"/>
+  <!-- Text -->
+  <text x="600" y="635" text-anchor="middle" font-family="Georgia,serif" font-size="48" font-weight="bold" letter-spacing="5" fill="#FFFFFF">AKKALKOT</text>
+  <text x="600" y="675" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" letter-spacing="2" fill="#EFD096">Swami Samarth Maharaj · with Mirantar</text>
+</svg>
