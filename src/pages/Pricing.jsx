@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { MessageCircle, Plane, Clock, Route as RouteIcon, Wallet, Tag } from 'lucide-react';
 import SectionHeader from '../components/SectionHeader.jsx';
 import { TOURS } from '../data/tours.js';
-import { formatINR, getBookingAdvance, getAirportTransferStartingPrice, getExtraHourRate, isFestiveOfferEnabled, getFestiveOfferCode, getFestiveDiscountAmount, isFestiveEligibleOffer, calculateFestivePrice } from '../utils/pricing.js';
+import { formatINR, getBookingAdvance, getAirportTransferStartingPrice, getExtraHourRate, isFestiveOfferEnabled, getFestiveOfferCode, getFestiveDiscountAmount, getFestiveMinRegularFare, getFestiveMaxConfirmedBookings, isFestiveEligibleOffer, calculateFestivePrice } from '../utils/pricing.js';
 import { createWhatsAppLink } from '../utils/whatsapp.js';
 import { IMAGES } from '../data/images.js';
 
@@ -35,7 +35,10 @@ export default function Pricing() {
                 <p className="eyebrow">Limited festive offer</p>
                 <h2 className="font-display text-2xl sm:text-3xl font-semibold text-navy">Festive Offer: Save {formatINR(festiveDiscount)}</h2>
                 <p className="mt-2 text-sm text-slate-600">
-                  Eligible outstation packages (round-trips and one-way transfers). Offer code {festiveCode}. Local packages and airport transfers excluded. Not a permanent price change.
+                  {formatINR(festiveDiscount)} OFF on eligible outstation trips with a regular package fare strictly above {formatINR(getFestiveMinRegularFare())} — round-trips and one-way transfers. Offer code <span className="font-mono font-semibold">{festiveCode}</span>. Local packages and airport transfers excluded. Not a permanent price change.
+                </p>
+                <p className="mt-1 text-xs text-slate-500">
+                  Limited to the first {getFestiveMaxConfirmedBookings()} confirmed eligible bookings across the entire campaign. Mirantar tracks this manually; the website cannot enforce the limit automatically. Always confirm eligibility with Mirantar.
                 </p>
               </div>
               <span className="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-2 text-xs font-bold text-navy-950">

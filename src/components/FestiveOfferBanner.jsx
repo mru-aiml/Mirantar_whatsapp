@@ -25,10 +25,11 @@ export default function FestiveOfferBanner() {
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-gold-200">MIRANTAR FESTIVE GETAWAYS</p>
               <h2 className="font-display text-xl sm:text-2xl font-semibold leading-tight">Make more memories on the road this festive season.</h2>
               <p className="mt-1 text-sm text-white/85">
-                Get {formatINR(discount)} OFF eligible outstation packages — round-trips and one-way transfers.
+                Get {formatINR(discount)} OFF eligible outstation packages (round-trips and one-way transfers) priced above {formatINR(getFestiveMinRegularFare())}.
               </p>
               <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-white/70">
-                <li>Outstation packages only. Local packages excluded.</li>
+                <li>Outstation packages above {formatINR(getFestiveMinRegularFare())} only. Local packages excluded.</li>
+                <li>Limited to first 10 confirmed eligible bookings — tracked manually by Mirantar.</li>
                 <li>Offer code: <span className="font-mono font-bold text-gold-200">{code}</span></li>
               </ul>
             </div>

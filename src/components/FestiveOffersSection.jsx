@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Tag, Route as RouteIcon, ArrowRight, MessageCircle } from 'lucide-react';
 import { TOURS } from '../data/tours.js';
-import { formatINR, isFestiveOfferEnabled, getFestiveOfferCode, getFestiveDiscountAmount, calculateFestivePrice, isFestiveEligibleOffer } from '../utils/pricing.js';
+import { formatINR, isFestiveOfferEnabled, getFestiveOfferCode, getFestiveDiscountAmount, getFestiveMinRegularFare, getFestiveMaxConfirmedBookings, calculateFestivePrice, isFestiveEligibleOffer } from '../utils/pricing.js';
 import SafeImage from './SafeImage.jsx';
 import { tourImages } from '../data/images.js';
 
@@ -24,7 +24,7 @@ export default function FestiveOffersSection() {
             <p className="eyebrow">Limited festive offer</p>
             <h2 className="font-display text-3xl sm:text-4xl font-semibold text-navy">Festive Offers on Outstation Packages</h2>
             <p className="mt-2 max-w-2xl text-sm sm:text-base text-slate-600">
-              Save {formatINR(discount)} on eligible outstation packages — round-trips and one-way transfers. Offer code <span className="font-mono font-semibold">{code}</span>. Local packages and airport transfers are not eligible. Availability and eligibility confirmed by Mirantar.
+              Save {formatINR(discount)} on eligible outstation packages (regular fare strictly above {formatINR(getFestiveMinRegularFare())}) — round-trips and one-way transfers. Offer code <span className="font-mono font-semibold">{code}</span>. Local packages and airport transfers are not eligible. Limited to the first {getFestiveMaxConfirmedBookings()} confirmed eligible bookings — tracked manually by Mirantar; the website cannot enforce this limit automatically.
             </p>
           </div>
           <span className="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-2 text-xs font-bold text-navy-950">
@@ -89,7 +89,7 @@ export default function FestiveOffersSection() {
         </div>
 
         <p className="mt-6 text-center text-xs leading-relaxed text-slate-500">
-          Offer applies to eligible outstation packages (round-trips and one-way transfers). Local packages and airport transfers are excluded. Limited to the first 10 confirmed bookings — availability confirmed by Mirantar on WhatsApp.
+          ₹500 OFF on eligible outstation trips with a regular package fare above {formatINR(getFestiveMinRegularFare())} (round-trips and one-way transfers). Local packages and airport transfers are excluded. Limited to the first {getFestiveMaxConfirmedBookings()} confirmed eligible bookings — Mirantar tracks this manually and will disable the offer once the limit is reached. Always confirm eligibility with Mirantar before booking.
         </p>
       </div>
     </section>

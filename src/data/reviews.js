@@ -51,6 +51,17 @@ export const APPROVED_REVIEWS = [
   //   review: 'Very comfortable journey. Driver was polite and punctual.',
   //   approved: true,
   // },
+  {
+    id: 1,
+    name: 'Aaqib Shaikh',
+    initials: 'AS',
+    rating: 5,
+    route: 'Pune to Shirdi',
+    travelDate: '25 October 2026',
+    review: 'Driver Behavior - Clean Vehicle - Value For Money',
+    approved: true,
+  }
+
 ];
 
 /** Returns only approved reviews, sorted newest-first by id. */

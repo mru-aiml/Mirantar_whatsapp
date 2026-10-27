@@ -13,9 +13,9 @@ export const pricingConfig = {
     enabled: true,
     code: 'FESTIVE500',
     discountAmount: 500,
-    // minRegularFare: 0 means NO minimum fare requirement.
-    // The discount applies to any eligible outstation trip regardless of price.
-    minRegularFare: 0,
+    // Minimum regular fare threshold (strictly greater than): a trip must cost
+    // MORE than this amount to qualify. A fare of exactly ₹3,500 is NOT eligible.
+    minRegularFare: 3500,
     // Eligible trip types: outstation round-trips AND one-way outstation transfers.
     // 'local' tripType is NOT in this list — local packages are excluded.
     // Airport transfers are also excluded (handled separately).

@@ -10,7 +10,10 @@
  * Folders:
  *   public/images/logo/          brand logo
  *   public/images/hero/          homepage / page heroes
- *   public/images/tours/         one file per tour (provided tour photos)
+ *   public/images/tours/         one file per tour (real owner-supplied photos)
+ *                                SVG files may remain as orphans from the
+ *                                previous placeholder set; they are safe to
+ *                                delete once confirmed not referenced.
  *   public/images/ashtavinayak/  branded SVG placeholders, one per temple
  *                                (theur, ranjangaon, ozar, lenyadri,
  *                                morgaon, siddhatek, pali, mahad)
@@ -74,13 +77,17 @@ export const tourImages = {
   puneHeritage: '/images/tours/pune_heritage.jpg',
   custom: '/images/tours/custom.jpg',
   ganpati: '/images/tours/ganpati.jpg',
-  // Destination-specific branded SVGs (generated when no photo is available)
-  tuljapur: '/images/tours/tuljapur.svg',
-  pandharpur: '/images/tours/pandharpur.svg',
-  akkalkot: '/images/tours/akkalkot.svg',
-  solapur: '/images/tours/solapur.svg',
-  kolhapur: '/images/tours/kolhapur.svg',
-  satara: '/images/tours/satara.svg',
+  // Real owner-supplied photos (replacing temporary SVG placeholders)
+  tuljapur: '/images/tours/tuljapur.jfif',
+  pandharpur: '/images/tours/pandharpur.jfif',
+  akkalkot: '/images/tours/akkalkot.jfif',
+  solapur: '/images/tours/solapur.jfif',
+  kolhapur: '/images/tours/kolhapur.jfif',
+  satara: '/images/tours/satara.jfif',
+  // Additional real photos for other routes
+  goa: '/images/tours/goa.jfif',
+  mumbai: '/images/tours/mumbai.jfif',
+  puneLocal: '/images/tours/pune_Local.jfif',
 };
 
 /** Meaningful alt text per tour image (SEO / accessibility). */
@@ -110,6 +117,9 @@ export const tourImageAlts = {
   solapur: 'Solapur private outstation trip with Mirantar',
   kolhapur: 'Mahalakshmi Temple and Kolhapur trip with Mirantar',
   satara: 'Satara and Ajinkyatara Fort trip with Mirantar',
+  goa: 'Pune to Goa private road trip with Mirantar',
+  mumbai: 'Pune to Mumbai private transfer with Mirantar',
+  puneLocal: 'Local Pune city package with Mirantar',
 };
 
 /** Neutral branded fallback shown if any image fails to load. */

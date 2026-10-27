@@ -34,7 +34,7 @@ export const FAQS = [
   },
   {
     q: 'Who is eligible for the festive offer?',
-    a: 'Outstation packages — both round-trips and one-way transfers. Local packages, airport transfers and custom quotes are not eligible. There is no minimum fare requirement. Mirantar confirms availability and eligibility on WhatsApp.',
+    a: `Eligible outstation packages — both round-trips and one-way transfers — with a regular package fare strictly greater than ₹3,500. A fare of exactly ₹3,500 is not eligible. Local packages (including Pune Heritage/local sightseeing), airport transfers and custom quotes are excluded. Mirantar confirms availability and eligibility on WhatsApp.`,
   },
   {
     q: 'How do I claim the festive offer?',

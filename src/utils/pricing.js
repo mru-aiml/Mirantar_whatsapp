@@ -118,11 +118,30 @@ export function isFestiveTripTypeEligible(tripType) {
   return allowed.includes(tripType);
 }
 
+/**
+ * Single source of truth for FESTIVE500 eligibility.
+ *
+ * A trip is eligible only when ALL of the following hold:
+ *   1. The festive offer is enabled.
+ *   2. The regular package fare is STRICTLY GREATER THAN the minimum (₹3,500).
+ *      A fare of exactly ₹3,500 is NOT eligible.
+ *   3. The trip type is in the allowed list ('outstation', 'outstation one-way').
+ *      Local packages and airport transfers are excluded by trip type.
+ *
+ * Note: the first-10-bookings campaign limit cannot be enforced here because
+ * this is a frontend-only app with no backend counter. The business owner must
+ * track confirmed bookings manually and set enabled: false after 10 are confirmed.
+ *
+ * @param {number|null} price  Regular package fare (before any discount).
+ * @param {string}      tripType  e.g. 'outstation', 'outstation one-way', 'local'.
+ * @returns {boolean}
+ */
 export function isFestiveEligibleOffer(price, tripType) {
   if (!isFestiveOfferEnabled()) return false;
   if (price === null || price === undefined) return false;
-  // minRegularFare is 0 in config (no minimum fare requirement);
-  // only the tripType gate applies for local vs outstation distinction.
+  // Gate 1: minimum regular fare — STRICTLY greater than threshold.
+  if (!isFestiveEligibleRegularPrice(price)) return false;
+  // Gate 2: trip type — local packages and airport transfers are excluded.
   if (!isFestiveTripTypeEligible(tripType)) return false;
   return true;
 }
@@ -185,9 +204,9 @@ export function getFestiveDiscountAmount() {
 }
 
 export function getFestiveMinRegularFare() {
-  // Returns 0 when config sets minRegularFare: 0 (no minimum fare requirement).
-  // Fallback is also 0 to reflect the same intent if the field is absent.
-  return clampNonNegative(pricingConfig.festiveOffer?.minRegularFare ?? 0);
+  // Returns the minimum regular fare threshold (strictly greater than).
+  // A fare equal to this value is NOT eligible; the fare must exceed it.
+  return clampNonNegative(pricingConfig.festiveOffer?.minRegularFare ?? 3500);
 }
 
 /**
@@ -221,12 +240,19 @@ export function getExtraHourRate() {
   return clampNonNegative(v);
 }
 
+/**
+ * Returns true when the regular fare STRICTLY EXCEEDS the minimum threshold.
+ * A fare equal to the threshold is NOT eligible.
+ */
 export function isFestiveEligibleRegularPrice(regularPrice) {
-  return clampNonNegative(regularPrice) >= getFestiveMinRegularFare();
+  return clampNonNegative(regularPrice) > getFestiveMinRegularFare();
 }
 
 export function calculateFestivePrice(regularPrice) {
   const base = clampNonNegative(regularPrice);
+  // Reuse the shared eligibility guard so all call sites stay consistent.
+  // Note: tripType is not re-checked here — callers must have already verified
+  // eligibility via isFestiveEligibleOffer() before calling this function.
   if (!isFestiveOfferEnabled()) return base;
   if (!isFestiveEligibleRegularPrice(base)) return base;
   return calculateDiscountedPrice(base, getFestiveDiscountAmount());

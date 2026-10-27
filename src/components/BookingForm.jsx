@@ -4,7 +4,7 @@ import { MessageCircle } from 'lucide-react';
 import { TOURS } from '../data/tours.js';
 import { GANPATI_PACKAGES, formatINR, distancePolicyText } from '../data/ganpati.js';
 import { tourConfig } from '../config/tourConfig.js';
-import { getBookingAdvance, bookingAdvanceExplanation, calculateRemainingFare, isFestiveOfferEnabled, getFestiveOfferCode, getFestiveDiscountAmount, getFestiveMinRegularFare, isFestiveEligibleRegularPrice, calculateFestivePrice } from '../utils/pricing.js';
+import { getBookingAdvance, bookingAdvanceExplanation, calculateRemainingFare, isFestiveOfferEnabled, getFestiveOfferCode, getFestiveDiscountAmount, getFestiveMinRegularFare, isFestiveEligibleOffer, calculateFestivePrice } from '../utils/pricing.js';
 import { buildBookingMessage, createWhatsAppLink, isValidIndianMobile, isFutureOrToday, todayISO } from '../utils/whatsapp.js';
 
 export default function BookingForm({ presetTour = '', ganpatiPkg = null, tourPricing = null, compact = false, prefillOfferCode = '' }) {
@@ -58,7 +58,10 @@ export default function BookingForm({ presetTour = '', ganpatiPkg = null, tourPr
     return `Includes up to ${distanceKm.includedKm} km; extra at ${formatINR(distanceKm.extraKmRate)}/km`;
   }, [distanceKm]);
 
-  const remainingLabel = fixedPrice !== null ? `${formatINR(calculateRemainingFare(fixedPrice))} (after ${formatINR(getBookingAdvance())} advance)` : '';
+  // When the festive discount is active, the remaining fare is calculated from the discounted package fare.
+  // When no discount applies, it is calculated from the regular fixed price.
+  const effectivePriceForRemaining = festivePrice !== null ? festivePrice : fixedPrice;
+  const remainingLabel = effectivePriceForRemaining !== null ? `${formatINR(calculateRemainingFare(effectivePriceForRemaining))} (after ${formatINR(getBookingAdvance())} advance)` : '';
 
   function set(key, value) {
     setForm((f) => ({ ...f, [key]: value }));
@@ -180,7 +183,7 @@ export default function BookingForm({ presetTour = '', ganpatiPkg = null, tourPr
         )}
         {offerCode.trim() && !festiveEligible && isFestiveOfferEnabled() && (
           <span className="block text-xs text-slate-600 mt-1.5">
-            Festive offer not applied: enter {getFestiveOfferCode()} for an eligible outstation package (round-trip or one-way).
+            Festive offer not applied: enter {getFestiveOfferCode()} for an eligible outstation package (round-trip or one-way) with a regular fare above {formatINR(getFestiveMinRegularFare())}.
           </span>
         )}
         <span className="block text-xs text-slate-600 mt-1.5">
@@ -193,7 +196,7 @@ export default function BookingForm({ presetTour = '', ganpatiPkg = null, tourPr
         )}
         <span className="block text-xs text-slate-500 mt-1">Toll, parking and halting charges, wherever applicable, are payable separately by the passenger.</span>
         <p className="mt-2 text-xs leading-relaxed text-slate-600">
-          Offer applies to eligible outstation packages. Availability and eligibility will be confirmed by Mirantar.
+          Offer applies to eligible outstation packages (round-trips and one-way transfers) with a regular fare strictly above {formatINR(getFestiveMinRegularFare())}. Availability and eligibility will be confirmed by Mirantar.
         </p>
       </div>
       <div className="mt-3 rounded-xl border border-slate-200 bg-white p-3 text-xs leading-relaxed text-slate-600">
